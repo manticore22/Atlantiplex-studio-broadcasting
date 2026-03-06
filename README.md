@@ -184,7 +184,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Studio:** Seraphonix Studios  
 **Email:** seraphonixstudios@gmail.com  
 **Website:** https://verilysovereign.org  
-**Twitter/X:** [@r1914514](https://twitter.com/r1914514)
+**Twitter/X:** [@r1914514](https://twitter.com/r1914514)  
+**YouTube:** [@manticore-übermensch](https://www.youtube.com/@manticore-%C3%BCbermensch)
 
 ## 🚀 Roadmap
 
@@ -203,5 +204,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <p align="center">
   <a href="https://twitter.com/r1914514">Twitter</a> •
+  <a href="https://www.youtube.com/@manticore-%C3%BCbermensch">YouTube</a> •
   <a href="https://verilysovereign.org">Website</a>
 </p>
