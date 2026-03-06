@@ -1,0 +1,31 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    gcc \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements
+COPY requirements.txt ./
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application code
+COPY app.py ./
+COPY scene_manager.py ./
+COPY guest_management.py ./
+COPY broadcast_engine.py ./
+COPY avatar_management.py ./
+
+# Create upload directories
+RUN mkdir -p uploads/avatars uploads/scenes uploads/streams
+
+# Expose port
+EXPOSE 5000
+
+# Start Flask app
+CMD ["python", "app.py"]
