@@ -3,18 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atlantiplex Studio - Enter the Matrix</title>
-    <meta name="description" content="Professional broadcasting studio with AI-powered streaming capabilities">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <title>Atlantiplex Studio | Professional Broadcasting Platform</title>
+    <meta name="description" content="Professional multi-platform broadcasting studio with AI-powered streaming capabilities">
+    <meta name="theme-color" content="#001a33">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --neon-green: #00ff00;
-            --matrix-green: #0f0;
-            --atlantean-blue: #00bfff;
-            --glitch-red: #ff0000;
-            --cyber-purple: #9b00ff;
-            --background-dark: #001a33;
+            --primary: #00ff88;
+            --primary-dark: #00cc6a;
+            --secondary: #00d4ff;
+            --accent: #9d4edd;
+            --background: #0a0a0f;
+            --surface: #12121a;
+            --surface-light: #1e1e2e;
+            --text: #ffffff;
+            --text-muted: #a0a0b0;
+            --error: #ff4757;
+            --success: #00ff88;
+            --warning: #ffa502;
         }
 
         * {
@@ -24,191 +35,326 @@
         }
 
         body {
-            background-color: var(--background-dark);
-            font-family: 'Montserrat', sans-serif;
-            color: #fff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--background);
+            color: var(--text);
             min-height: 100vh;
+            line-height: 1.6;
             overflow-x: hidden;
-            position: relative;
         }
 
-        /* Background Effects */
-        .matrix-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            background: linear-gradient(to bottom, #001a33, #000033);
-        }
-
-        .matrix-rain {
+        /* Animated Background */
+        .bg-animation {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 0.2;
+            background: 
+                radial-gradient(ellipse at top, rgba(0, 212, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom right, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom left, rgba(157, 78, 221, 0.1) 0%, transparent 50%),
+                var(--background);
         }
 
-        .scanline {
+        .grid-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0, 255, 0, 0.03) 2px, rgba(0, 255, 0, 0.03) 4px);
-            pointer-events: none;
-            z-index: 1;
+            z-index: -1;
+            background-image: 
+                linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
         }
 
-        /* Container */
-        .container {
-            max-width: 1200px;
+        @keyframes gridMove {
+            0% { transform: perspective(500px) rotateX(60deg) translateY(0); }
+            100% { transform: perspective(500px) rotateX(60deg) translateY(50px); }
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 40px 20px;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Header */
-        .header {
-            text-align: center;
-            margin-bottom: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .logo {
-            font-family: 'VT323', monospace;
-            font-size: 4rem;
-            color: var(--neon-green);
-            text-shadow: 0 0 20px var(--matrix-green);
-            margin-bottom: 10px;
-            animation: glitch 2s infinite;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-decoration: none;
         }
 
-        @keyframes glitch {
-            0%, 90%, 100% { transform: translate(0); }
-            92% { transform: translate(-2px, 2px); color: var(--glitch-red); }
-            94% { transform: translate(2px, -2px); }
-            96% { transform: translate(-2px, 2px); color: var(--cyber-purple); }
-            98% { transform: translate(2px, -2px); }
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
         }
 
-        .tagline {
-            color: var(--atlantean-blue);
-            font-size: 1.2rem;
-            opacity: 0.9;
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
         }
 
-        /* Main Content Grid */
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 2rem 4rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff 0%, var(--primary) 50%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Feature Pills */
+        .feature-pills {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 3rem;
+        }
+
+        .pill {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--surface);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .pill-icon {
+            font-size: 1rem;
+        }
+
+        /* Content Grid */
         .content-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 60px;
+            gap: 3rem;
             align-items: start;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 968px) {
             .content-grid {
                 grid-template-columns: 1fr;
-                gap: 40px;
             }
         }
 
-        /* Info Section */
-        .info-section {
-            padding: 40px;
-            background: rgba(0, 0, 51, 0.6);
-            border-radius: 20px;
-            border: 1px solid var(--atlantean-blue);
-            box-shadow: 0 0 30px rgba(0, 191, 255, 0.2);
+        /* Info Card */
+        .info-card {
+            background: var(--surface);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
         }
 
-        .info-section h2 {
-            font-family: 'VT323', monospace;
-            color: var(--neon-green);
-            font-size: 2rem;
-            margin-bottom: 20px;
-            text-shadow: 0 0 10px var(--matrix-green);
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+        }
+
+        .info-card h2 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
         }
 
         .feature-list {
             list-style: none;
-            margin: 30px 0;
+            margin: 1.5rem 0;
         }
 
         .feature-list li {
-            padding: 10px 0;
-            padding-left: 30px;
+            padding: 0.75rem 0;
+            padding-left: 2rem;
             position: relative;
-            color: #ccc;
+            color: var(--text-muted);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
         }
 
         .feature-list li::before {
-            content: "▸";
+            content: "✓";
             position: absolute;
             left: 0;
-            color: var(--neon-green);
+            color: var(--primary);
             font-weight: bold;
+            width: 24px;
+            height: 24px;
+            background: rgba(0, 255, 136, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
         }
 
-        .trial-badge {
-            background: linear-gradient(45deg, var(--neon-green), var(--atlantean-blue));
-            color: #000;
-            padding: 15px 25px;
-            border-radius: 10px;
+        .trial-card {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 212, 255, 0.1));
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-top: 2rem;
             text-align: center;
-            font-weight: bold;
-            margin-top: 30px;
-            box-shadow: 0 0 20px var(--neon-green);
         }
 
-        /* Auth Section */
-        .auth-section {
-            background: rgba(0, 0, 51, 0.8);
-            border-radius: 20px;
-            border: 2px solid var(--neon-green);
-            box-shadow: 0 0 40px rgba(0, 255, 0, 0.3);
+        .trial-card h3 {
+            color: var(--primary);
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .trial-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Auth Card */
+        .auth-card {
+            background: var(--surface);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
             overflow: hidden;
         }
 
         .auth-tabs {
             display: flex;
-            background: rgba(0, 0, 0, 0.3);
+            background: var(--surface-light);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .auth-tab {
             flex: 1;
-            padding: 20px;
+            padding: 1.25rem;
             background: transparent;
             border: none;
-            color: #fff;
-            font-family: 'VT323', monospace;
-            font-size: 1.3rem;
+            color: var(--text-muted);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
             position: relative;
         }
 
         .auth-tab.active {
-            background: var(--neon-green);
-            color: #000;
+            color: var(--text);
+            background: var(--surface);
         }
 
-        .auth-tab:hover:not(.active) {
-            background: rgba(0, 255, 0, 0.2);
+        .auth-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
         }
 
         .auth-form {
-            padding: 40px;
+            padding: 2.5rem;
             display: none;
         }
 
         .auth-form.active {
             display: block;
-            animation: fadeIn 0.5s;
+            animation: fadeIn 0.4s ease;
         }
 
         @keyframes fadeIn {
@@ -217,419 +363,576 @@
         }
 
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 1.5rem;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
-            color: var(--atlantean-blue);
-            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            font-weight: 500;
         }
 
         .form-group input {
             width: 100%;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid var(--atlantean-blue);
-            border-radius: 8px;
-            color: #fff;
+            padding: 1rem 1.25rem;
+            background: var(--background);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: var(--text);
             font-size: 1rem;
+            font-family: 'Inter', sans-serif;
             transition: all 0.3s;
         }
 
         .form-group input:focus {
             outline: none;
-            border-color: var(--neon-green);
-            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
         }
 
         .submit-btn {
             width: 100%;
-            padding: 18px;
-            background: linear-gradient(45deg, var(--neon-green), var(--atlantean-blue));
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             border: none;
-            border-radius: 8px;
-            color: #000;
-            font-family: 'VT323', monospace;
-            font-size: 1.3rem;
-            font-weight: bold;
+            border-radius: 12px;
+            color: var(--background);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
 
         .submit-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 255, 0, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
         }
 
         .submit-btn:disabled {
-            opacity: 0.5;
+            opacity: 0.6;
             cursor: not-allowed;
+            transform: none;
         }
 
-        .error-message {
-            background: rgba(255, 0, 0, 0.2);
-            border: 1px solid var(--glitch-red);
-            color: #ff6b6b;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: none;
-        }
-
-        .success-message {
-            background: rgba(0, 255, 0, 0.2);
-            border: 1px solid var(--neon-green);
-            color: #00ff00;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: none;
-        }
-
-        /* Pricing Tiers */
-        .pricing-section {
-            margin-top: 60px;
-            text-align: center;
-        }
-
-        .pricing-section h2 {
-            font-family: 'VT323', monospace;
-            color: var(--neon-green);
-            font-size: 2.5rem;
-            margin-bottom: 40px;
-            text-shadow: 0 0 10px var(--matrix-green);
-        }
-
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .pricing-card {
-            background: rgba(0, 0, 51, 0.6);
-            border-radius: 15px;
-            padding: 30px;
-            border: 1px solid var(--atlantean-blue);
-            transition: all 0.3s;
-            position: relative;
-        }
-
-        .pricing-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 191, 255, 0.3);
-        }
-
-        .pricing-card.featured {
-            border-color: var(--neon-green);
-            box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
-        }
-
-        .pricing-card h3 {
-            font-family: 'VT323', monospace;
-            color: var(--atlantean-blue);
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-
-        .price {
-            font-size: 2.5rem;
-            color: var(--neon-green);
-            font-weight: bold;
-            margin: 20px 0;
-        }
-
-        .price span {
-            font-size: 1rem;
-            color: #888;
-        }
-
-        .pricing-features {
-            list-style: none;
-            text-align: left;
-            margin: 20px 0;
-        }
-
-        .pricing-features li {
-            padding: 8px 0;
-            color: #ccc;
-        }
-
-        .pricing-features li::before {
-            content: "✓";
-            color: var(--neon-green);
-            margin-right: 10px;
-        }
-
-        /* Footer */
-        .footer {
-            margin-top: 80px;
-            text-align: center;
-            padding: 40px;
-            border-top: 1px solid var(--atlantean-blue);
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom: 20px;
-        }
-
-        .footer-links a {
-            color: var(--atlantean-blue);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: var(--neon-green);
-        }
-
-        /* Loading Spinner */
         .spinner {
             display: none;
             width: 20px;
             height: 20px;
-            border: 2px solid #000;
+            border: 2px solid var(--background);
             border-top-color: transparent;
             border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-right: 10px;
-            vertical-align: middle;
+            animation: spin 0.8s linear infinite;
         }
 
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+
+        .message {
+            padding: 1rem 1.25rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .message.error {
+            display: block;
+            background: rgba(255, 71, 87, 0.1);
+            border: 1px solid rgba(255, 71, 87, 0.3);
+            color: #ff6b7a;
+        }
+
+        .message.success {
+            display: block;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            color: var(--primary);
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            margin-top: 6rem;
+            text-align: center;
+        }
+
+        .pricing-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-section > p {
+            color: var(--text-muted);
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .pricing-card {
+            background: var(--surface);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 2rem;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .pricing-card.featured {
+            border-color: var(--primary);
+            background: linear-gradient(180deg, var(--surface) 0%, rgba(0, 255, 136, 0.05) 100%);
+        }
+
+        .pricing-card.featured::before {
+            content: 'POPULAR';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--background);
+            padding: 0.25rem 1rem;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .pricing-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 1.5rem 0;
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 0.25rem;
+        }
+
+        .price span {
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .pricing-features {
+            list-style: none;
+            text-align: left;
+            margin: 1.5rem 0;
+        }
+
+        .pricing-features li {
+            padding: 0.75rem 0;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .pricing-features li::before {
+            content: "✓";
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .pricing-btn {
+            width: 100%;
+            padding: 1rem;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .pricing-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .pricing-card.featured .pricing-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            color: var(--background);
+        }
+
+        .pricing-card.featured .pricing-btn:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 6rem;
+            padding: 3rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .footer-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--text);
+        }
+
+        .footer-copy {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--surface);
+                padding: 1rem;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .content-grid {
+                gap: 2rem;
+            }
+
+            .info-card,
+            .auth-form {
+                padding: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <canvas class="matrix-rain" id="matrix-canvas"></canvas>
-    <div class="matrix-bg"></div>
-    <div class="scanline"></div>
+    <div class="bg-animation"></div>
+    <div class="grid-overlay"></div>
 
-    <div class="container">
-        <header class="header">
-            <h1 class="logo">⚡ ATLANTIPLEX STUDIO</h1>
-            <p class="tagline">Professional Broadcasting Platform • Enter the Matrix</p>
-        </header>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">⚡</div>
+                Atlantiplex
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
+                <a href="https://verilysovereign.org">Website</a>
+                <a href="mailto:seraphonixstudios@gmail.com">Support</a>
+            </div>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        </div>
+    </nav>
 
+    <main class="main-container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-badge">
+                <span>🚀</span>
+                Now in Beta
+            </div>
+            <h1>Professional Broadcasting Studio</h1>
+            <p>Multi-platform streaming with AI-powered capabilities. Stream to YouTube, Twitch, Facebook, and LinkedIn simultaneously with professional-grade tools.</p>
+            
+            <div class="feature-pills">
+                <div class="pill">
+                    <span class="pill-icon">📡</span>
+                    Multi-Platform
+                </div>
+                <div class="pill">
+                    <span class="pill-icon">🎥</span>
+                    4K Streaming
+                </div>
+                <div class="pill">
+                    <span class="pill-icon">👥</span>
+                    8 Guests
+                </div>
+                <div class="pill">
+                    <span class="pill-icon">🤖</span>
+                    AI Powered
+                </div>
+            </div>
+        </section>
+
+        <!-- Content Grid -->
         <div class="content-grid">
-            <!-- Info Section -->
-            <div class="info-section">
-                <h2>🎬 Welcome to the Future</h2>
-                <p style="color: #ccc; line-height: 1.8; margin-bottom: 20px;">
-                    Professional multi-platform broadcasting studio with AI-powered streaming capabilities. 
-                    Guest management, scene control, and real-time streaming to YouTube, Twitch, Facebook, and more.
+            <!-- Info Card -->
+            <div class="info-card" id="features">
+                <h2>
+                    <span>🎬</span>
+                    Everything You Need
+                </h2>
+                <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+                    Professional broadcasting tools designed for creators, businesses, and enterprises.
                 </p>
                 
                 <ul class="feature-list">
                     <li>Multi-platform streaming (YouTube, Twitch, Facebook, LinkedIn)</li>
-                    <li>Guest management system (up to 8 guests)</li>
-                    <li>Scene switching and overlays</li>
+                    <li>Up to 8 guests with role-based access control</li>
+                    <li>Dynamic scene switching with custom overlays</li>
                     <li>AI-powered broadcasting assistance</li>
                     <li>Real-time chat integration</li>
                     <li>Professional audio/video controls</li>
-                    <li>Recording and archiving</li>
+                    <li>Cloud recording and archiving</li>
+                    <li>Analytics and viewer insights</li>
                 </ul>
 
-                <div class="trial-badge">
-                    🎁 START WITH 16-HOUR FREE TRIAL<br>
-                    <small>No credit card required</small>
+                <div class="trial-card">
+                    <h3>Start Free Today</h3>
+                    <p>Get 16 hours of streaming time with full access to all features. No credit card required.</p>
                 </div>
             </div>
 
-            <!-- Auth Section -->
-            <div class="auth-section">
+            <!-- Auth Card -->
+            <div class="auth-card">
                 <div class="auth-tabs">
-                    <button class="auth-tab active" onclick="switchTab('login')">LOGIN</button>
-                    <button class="auth-tab" onclick="switchTab('signup')">SIGN UP</button>
+                    <button class="auth-tab active" onclick="switchTab('login')">Sign In</button>
+                    <button class="auth-tab" onclick="switchTab('signup')">Create Account</button>
                 </div>
 
                 <!-- Login Form -->
                 <form class="auth-form active" id="login-form" onsubmit="handleLogin(event)">
-                    <div class="error-message" id="login-error"></div>
-                    <div class="success-message" id="login-success"></div>
+                    <div class="message" id="login-message"></div>
                     
                     <div class="form-group">
-                        <label for="login-email">Email</label>
-                        <input type="email" id="login-email" required placeholder="your@email.com">
+                        <label for="login-email">Email Address</label>
+                        <input type="email" id="login-email" required placeholder="you@example.com">
                     </div>
                     
                     <div class="form-group">
                         <label for="login-password">Password</label>
-                        <input type="password" id="login-password" required placeholder="••••••••">
+                        <input type="password" id="login-password" required placeholder="Enter your password">
                     </div>
                     
                     <button type="submit" class="submit-btn" id="login-btn">
                         <span class="spinner"></span>
-                        ENTER STUDIO
+                        Sign In to Studio
                     </button>
                 </form>
 
                 <!-- Signup Form -->
                 <form class="auth-form" id="signup-form" onsubmit="handleSignup(event)">
-                    <div class="error-message" id="signup-error"></div>
-                    <div class="success-message" id="signup-success"></div>
+                    <div class="message" id="signup-message"></div>
                     
                     <div class="form-group">
-                        <label for="signup-email">Email</label>
-                        <input type="email" id="signup-email" required placeholder="your@email.com">
+                        <label for="signup-email">Email Address</label>
+                        <input type="email" id="signup-email" required placeholder="you@example.com">
                     </div>
                     
                     <div class="form-group">
                         <label for="signup-password">Password</label>
-                        <input type="password" id="signup-password" required placeholder="Min 8 characters">
+                        <input type="password" id="signup-password" required placeholder="Create a strong password" minlength="8">
                     </div>
                     
                     <div class="form-group">
                         <label for="signup-password-confirm">Confirm Password</label>
-                        <input type="password" id="signup-password-confirm" required placeholder="••••••••">
+                        <input type="password" id="signup-password-confirm" required placeholder="Confirm your password">
                     </div>
                     
                     <button type="submit" class="submit-btn" id="signup-btn">
                         <span class="spinner"></span>
-                        CREATE ACCOUNT
+                        Create Free Account
                     </button>
                 </form>
             </div>
         </div>
 
         <!-- Pricing Section -->
-        <div class="pricing-section">
-            <h2>💎 CHOOSE YOUR TIER</h2>
+        <section class="pricing-section" id="pricing">
+            <h2>Choose Your Plan</h2>
+            <p>Start free and upgrade as you grow. All plans include core broadcasting features.</p>
             
             <div class="pricing-grid">
                 <div class="pricing-card featured">
-                    <h3>🆓 FREE TRIAL</h3>
+                    <div class="pricing-icon">🆓</div>
+                    <h3>Free Trial</h3>
                     <div class="price">$0 <span>/ 16 hours</span></div>
                     <ul class="pricing-features">
-                        <li>16 hours of streaming</li>
+                        <li>16 hours of streaming time</li>
                         <li>Up to 4 guests</li>
-                        <li>2 platforms</li>
-                        <li>Basic scenes</li>
+                        <li>2 platforms simultaneously</li>
                         <li>720p quality</li>
+                        <li>Basic scene templates</li>
+                        <li>Email support</li>
                     </ul>
+                    <button class="pricing-btn">Get Started Free</button>
                 </div>
 
                 <div class="pricing-card">
-                    <h3>🌟 ASCENDANT</h3>
+                    <div class="pricing-icon">⭐</div>
+                    <h3>Ascendant</h3>
                     <div class="price">$9.99 <span>/ month</span></div>
                     <ul class="pricing-features">
-                        <li>70 hours/month</li>
+                        <li>70 hours per month</li>
                         <li>Up to 6 guests</li>
-                        <li>3 platforms</li>
-                        <li>Advanced scenes</li>
+                        <li>3 platforms simultaneously</li>
                         <li>1080p quality</li>
+                        <li>Advanced scene library</li>
+                        <li>Priority support</li>
                     </ul>
+                    <button class="pricing-btn">Choose Ascendant</button>
                 </div>
 
                 <div class="pricing-card">
-                    <h3>👑 COVENANT</h3>
+                    <div class="pricing-icon">👑</div>
+                    <h3>Covenant</h3>
                     <div class="price">$29.99 <span>/ month</span></div>
                     <ul class="pricing-features">
                         <li>Unlimited streaming</li>
                         <li>Up to 8 guests</li>
-                        <li>All platforms</li>
-                        <li>Custom overlays</li>
+                        <li>All platforms simultaneously</li>
                         <li>4K quality</li>
-                        <li>Priority support</li>
+                        <li>Custom overlays & branding</li>
+                        <li>API access</li>
                     </ul>
+                    <button class="pricing-btn">Choose Covenant</button>
                 </div>
 
                 <div class="pricing-card">
-                    <h3>♾️ SOVEREIGN</h3>
+                    <div class="pricing-icon">∞</div>
+                    <h3>Sovereign</h3>
                     <div class="price">$99.99 <span>/ month</span></div>
                     <ul class="pricing-features">
                         <li>Everything in Covenant</li>
                         <li>White-label solution</li>
                         <li>Custom integrations</li>
-                        <li>Dedicated server</li>
-                        <li>24/7 support</li>
-                        <li>API access</li>
+                        <li>Dedicated infrastructure</li>
+                        <li>24/7 phone support</li>
+                        <li>SLA guarantee</li>
                     </ul>
+                    <button class="pricing-btn">Contact Sales</button>
                 </div>
             </div>
-        </div>
+        </section>
+    </main>
 
-        <footer class="footer">
-            <div class="footer-links">
-                <a href="https://verilysovereign.org">Back to Website</a>
-                <a href="mailto:seraphonixstudios@gmail.com">Support</a>
-                <a href="https://twitter.com/r1914514">Twitter</a>
-                <a href="https://www.youtube.com/@manticore-ubermensch">YouTube</a>
-            </div>
-            <p style="color: #666;">© 2026 Seraphonix Studios. All rights reserved.</p>
-        </footer>
-    </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">
+            <div class="logo-icon">⚡</div>
+            Atlantiplex Studio
+        </div>
+        <div class="footer-links">
+            <a href="https://verilysovereign.org">Website</a>
+            <a href="mailto:seraphonixstudios@gmail.com">Support</a>
+            <a href="https://twitter.com/r1914514">Twitter</a>
+            <a href="https://www.youtube.com/@manticore-ubermensch">YouTube</a>
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+        </div>
+        <p class="footer-copy">© 2026 Seraphonix Studios. All rights reserved.</p>
+    </footer>
 
     <script>
-        // Matrix Rain Effect
-        const canvas = document.getElementById('matrix-canvas');
-        const ctx = canvas.getContext('2d');
-        
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
         }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-        
-        const matrixChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()_+-=[]{}|;:",.<>?/~';
-        const fontSize = 14;
-        const columns = canvas.width / fontSize;
-        const drops = [];
-        
-        for (let i = 0; i < columns; i++) {
-            drops[i] = Math.random() * -100;
-        }
-        
-        function drawMatrix() {
-            ctx.fillStyle = 'rgba(0, 26, 51, 0.05)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            ctx.fillStyle = '#0F0';
-            ctx.font = fontSize + 'px monospace';
-            
-            for (let i = 0; i < drops.length; i++) {
-                const text = matrixChars[Math.floor(Math.random() * matrixChars.length)];
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
-                drops[i]++;
-            }
-        }
-        
-        setInterval(drawMatrix, 50);
 
         // Tab Switching
         function switchTab(tab) {
-            const tabs = document.querySelectorAll('.auth-tab');
-            const forms = document.querySelectorAll('.auth-form');
+            document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
             
-            tabs.forEach(t => t.classList.remove('active'));
-            forms.forEach(f => f.classList.remove('active'));
-            
-            if (tab === 'login') {
-                tabs[0].classList.add('active');
-                document.getElementById('login-form').classList.add('active');
-            } else {
-                tabs[1].classList.add('active');
-                document.getElementById('signup-form').classList.add('active');
-            }
+            event.target.classList.add('active');
+            document.getElementById(tab + '-form').classList.add('active');
         }
 
         // API Configuration
-        const API_URL = 'https://api.verilysovereign.online';
-        
+        const API_URL = window.location.origin.includes('localhost') 
+            ? 'http://localhost:3000' 
+            : 'https://api.verilysovereign.online';
+
+        // Show Message
+        function showMessage(elementId, type, text) {
+            const el = document.getElementById(elementId);
+            el.className = 'message ' + type;
+            el.textContent = text;
+            el.style.display = 'block';
+        }
+
         // Handle Login
         async function handleLogin(event) {
             event.preventDefault();
@@ -638,50 +941,35 @@
             const password = document.getElementById('login-password').value;
             const btn = document.getElementById('login-btn');
             const spinner = btn.querySelector('.spinner');
-            const errorDiv = document.getElementById('login-error');
             
-            // Show loading
             btn.disabled = true;
             spinner.style.display = 'inline-block';
-            errorDiv.style.display = 'none';
             
             try {
                 const response = await fetch(`${API_URL}/api/auth/login`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password })
                 });
                 
                 const data = await response.json();
                 
                 if (response.ok) {
-                    // Store token
                     localStorage.setItem('authToken', data.token);
                     localStorage.setItem('userEmail', data.user.email);
-                    
-                    // Show success
-                    document.getElementById('login-success').textContent = 'Login successful! Redirecting...';
-                    document.getElementById('login-success').style.display = 'block';
-                    
-                    // Redirect to studio dashboard
-                    setTimeout(() => {
-                        window.location.href = '/studio/dashboard';
-                    }, 1500);
+                    showMessage('login-message', 'success', 'Login successful! Redirecting...');
+                    setTimeout(() => window.location.href = '/dashboard', 1500);
                 } else {
-                    errorDiv.textContent = data.error || 'Login failed. Please check your credentials.';
-                    errorDiv.style.display = 'block';
+                    showMessage('login-message', 'error', data.error || 'Login failed. Please check your credentials.');
                 }
             } catch (error) {
-                errorDiv.textContent = 'Network error. Please try again.';
-                errorDiv.style.display = 'block';
+                showMessage('login-message', 'error', 'Network error. Please try again.');
             } finally {
                 btn.disabled = false;
                 spinner.style.display = 'none';
             }
         }
-        
+
         // Handle Signup
         async function handleSignup(event) {
             event.preventDefault();
@@ -691,70 +979,51 @@
             const confirmPassword = document.getElementById('signup-password-confirm').value;
             const btn = document.getElementById('signup-btn');
             const spinner = btn.querySelector('.spinner');
-            const errorDiv = document.getElementById('signup-error');
             
-            // Validate passwords match
             if (password !== confirmPassword) {
-                errorDiv.textContent = 'Passwords do not match.';
-                errorDiv.style.display = 'block';
+                showMessage('signup-message', 'error', 'Passwords do not match.');
                 return;
             }
             
             if (password.length < 8) {
-                errorDiv.textContent = 'Password must be at least 8 characters.';
-                errorDiv.style.display = 'block';
+                showMessage('signup-message', 'error', 'Password must be at least 8 characters.');
                 return;
             }
             
-            // Show loading
             btn.disabled = true;
             spinner.style.display = 'inline-block';
-            errorDiv.style.display = 'none';
             
             try {
                 const response = await fetch(`${API_URL}/api/auth/signup`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password })
                 });
                 
                 const data = await response.json();
                 
                 if (response.ok) {
-                    // Store token
                     localStorage.setItem('authToken', data.token);
                     localStorage.setItem('userEmail', email);
-                    
-                    // Show success
-                    document.getElementById('signup-success').textContent = 'Account created! Your 16-hour free trial has started. Redirecting...';
-                    document.getElementById('signup-success').style.display = 'block';
-                    
-                    // Redirect to studio dashboard
-                    setTimeout(() => {
-                        window.location.href = '/studio/dashboard';
-                    }, 2000);
+                    showMessage('signup-message', 'success', 'Account created! Your 16-hour free trial has started.');
+                    setTimeout(() => window.location.href = '/dashboard', 2000);
                 } else {
-                    errorDiv.textContent = data.error || 'Signup failed. Please try again.';
-                    errorDiv.style.display = 'block';
+                    showMessage('signup-message', 'error', data.error || 'Signup failed. Please try again.');
                 }
             } catch (error) {
-                errorDiv.textContent = 'Network error. Please try again.';
-                errorDiv.style.display = 'block';
+                showMessage('signup-message', 'error', 'Network error. Please try again.');
             } finally {
                 btn.disabled = false;
                 spinner.style.display = 'none';
             }
         }
-        
+
         // Check if already logged in
         window.addEventListener('load', () => {
             const token = localStorage.getItem('authToken');
-            if (token) {
-                // Optional: Verify token is still valid
-                // If valid, redirect to dashboard
-                // window.location.href = '/studio/dashboard';
+            if (token && window.location.pathname === '/') {
+                // Optional: Verify token validity
+                // window.location.href = '/dashboard';
             }
         });
     </script>
